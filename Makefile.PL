@@ -27,7 +27,7 @@ my %WriteMakefileArgs = (
     "File::Temp" => 0,
     "Pod::Simple::XHTML" => "3.14"
   },
-  "VERSION" => "0.1",
+  "VERSION" => "0.11",
   "test" => {
     "TESTS" => "t/*.t"
   }

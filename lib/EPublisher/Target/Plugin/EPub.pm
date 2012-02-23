@@ -1,5 +1,7 @@
 package EPublisher::Target::Plugin::EPub;
 
+# ABSTRACT: Use EPub as a target for EPublisher
+
 use strict;
 use warnings;
 use Data::UUID;
@@ -12,7 +14,7 @@ use EPublisher;
 use EPublisher::Target::Base;
 our @ISA = qw(EPublisher::Target::Base);
 
-our $VERSION = 0.1;
+our $VERSION = 0.11;
 
 sub deploy {
     my ($self) = @_;
@@ -414,11 +416,11 @@ sub add_cover {
 
 =head1 NAME
 
-EPublisher::Target::Plugin::EPub
+EPublisher::Target::Plugin::EPub - Use EPub as a target for EPublisher
 
 =head1 VERSION
 
-version 0.1
+version 0.11
 
 =head1 SYNOPSIS
 
@@ -508,6 +510,4 @@ This is free software, licensed under:
 
 
 __END__
-
-# ABSTRACT: Use EPub as a target for EPublisher
 
