@@ -14,7 +14,7 @@ use EPublisher;
 use EPublisher::Target::Base;
 our @ISA = qw(EPublisher::Target::Base);
 
-our $VERSION = 0.11;
+our $VERSION = 0.2;
 
 sub deploy {
     my ($self) = @_;
@@ -72,9 +72,18 @@ sub deploy {
         $parser->index(0);
         
         $parser->accept_directive_as_processed( 'image' );
+
+        # we have to decrease all headings to the layer below
+        $pod->{pod} =~ s/=[hH][eE][aA][dD]1[ ]/=head2 /g; 
+        $pod->{pod} =~ s/=[hH][eE][aA][dD]2[ ]/=head3 /g; 
+        $pod->{pod} =~ s/=[hH][eE][aA][dD]3[ ]/=head4 /g; 
+        #TODO: need a fix for head4
         
         my ($in_fh_temp,$in_file_temp) = tempfile();
         binmode $in_fh_temp, ":encoding($encoding)";
+        # adding a title, given from the meta-data
+        print $in_fh_temp "=head1 $pod->{title}\n\n" || ''; 
+        # adding the content
         print $in_fh_temp $pod->{pod} || '';
         close $in_fh_temp;
         
@@ -96,7 +105,7 @@ sub deploy {
         unlink $in_file_temp;
         
         $self->add_to_table_of_contents( $counter, $parser->{to_index} );
-        
+
         # add images
         my @images = $parser->images_to_import();
         for my $image ( @images ) {
@@ -420,7 +429,7 @@ EPublisher::Target::Plugin::EPub - Use EPub as a target for EPublisher
 
 =head1 VERSION
 
-version 0.11
+version 0.2
 
 =head1 SYNOPSIS
 
@@ -476,23 +485,6 @@ creates the output.
 =head2 write more tests
 
 Untile now the test just cover the basics. Tests of output should be added.
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2012 Renee Baecker, all rights reserved.
-
-This program is free software; you can redistribute it and/or modify it
-under the same terms of Artistic License 2.0.
-
-=head1 AUTHOR
-
-=over
-
-=item Code: Renee Baecker (E<lt>module@renee-baecker.deE<gt>)
-
-=item Package: Boris Däppen (E<lt>boris_daeppen@bluewin.chE<gt>)
-
-=back
 
 =head1 AUTHOR
 
