@@ -14,7 +14,7 @@ use EPublisher;
 use EPublisher::Target::Base;
 our @ISA = qw(EPublisher::Target::Base);
 
-our $VERSION = 0.3;
+our $VERSION = 0.4;
 
 sub deploy {
     my ($self) = @_;
@@ -43,7 +43,7 @@ sub deploy {
 
     # Add the Dublin Core UUID.
     my $du = Data::UUID->new();
-    my $uuid = $du->create_from_name_str( NameSpace_URL, 'www.perl.org' );
+    my $uuid = $du->create_str;
 
     {
 
@@ -429,7 +429,7 @@ EPublisher::Target::Plugin::EPub - Use EPub as a target for EPublisher
 
 =head1 VERSION
 
-version 0.3
+version 0.4
 
 =head1 SYNOPSIS
 
