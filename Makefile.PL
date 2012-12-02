@@ -24,10 +24,11 @@ my %WriteMakefileArgs = (
     "EBook::EPUB" => "0.6",
     "EPublisher" => "0.6",
     "File::Basename" => 2,
+    "File::Path" => "2.08",
     "File::Temp" => 0,
     "Pod::Simple::XHTML" => "3.14"
   },
-  "VERSION" => "0.4",
+  "VERSION" => "0.5",
   "test" => {
     "TESTS" => "t/*.t"
   }

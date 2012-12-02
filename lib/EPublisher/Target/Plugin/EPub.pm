@@ -8,13 +8,14 @@ use Data::UUID;
 use EBook::EPUB;
 use File::Basename;
 use File::Temp qw(tempfile);
+use File::Path qw(remove_tree);
 use Pod::Simple::XHTML;
 
 use EPublisher;
 use EPublisher::Target::Base;
 our @ISA = qw(EPublisher::Target::Base);
 
-our $VERSION = 0.4;
+our $VERSION = 0.5;
 
 sub deploy {
     my ($self) = @_;
@@ -130,6 +131,10 @@ sub deploy {
         $self->publisher->debug( "402: can't create epub" );
         return '';
     }
+
+    # delete tmp dir created by EBook::EPUB
+    my $epub_tmp = $epub->tmpdir;
+    remove_tree $epub_tmp if $epub_tmp and -d $epub_tmp;
     
     return $out_filename;
 }
@@ -429,7 +434,7 @@ EPublisher::Target::Plugin::EPub - Use EPub as a target for EPublisher
 
 =head1 VERSION
 
-version 0.4
+version 0.5
 
 =head1 SYNOPSIS
 
